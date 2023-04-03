@@ -24,6 +24,7 @@ let firstNumber = '';
 let secondNumber = '';
 let typeOperation = null;
 let defined = false;
+let pressed = false;
 
 button1.addEventListener('click', () => {
     currentDisplay.textContent += '1';
@@ -74,6 +75,7 @@ buttonSum.addEventListener('click', () => {
     lastDisplay.textContent = `${+firstNumber}`;
     lastDisplay.textContent += ' + '
     typeOperation = 'sum';
+    pressed = false;
 });
 
 buttonMultiply.addEventListener('click', () => {
@@ -85,6 +87,7 @@ buttonMultiply.addEventListener('click', () => {
     lastDisplay.textContent = `${+firstNumber}`;
     lastDisplay.textContent += ' X '
     typeOperation = 'mult';
+    pressed = false;
 });
 
 buttonDivision.addEventListener('click', () => {
@@ -96,6 +99,7 @@ buttonDivision.addEventListener('click', () => {
     lastDisplay.textContent = `${+firstNumber}`;
     lastDisplay.textContent += ' ÷ '
     typeOperation = 'division';
+    pressed = false;
 });
 
 buttonSubstract.addEventListener('click', () => {
@@ -107,6 +111,7 @@ buttonSubstract.addEventListener('click', () => {
     lastDisplay.textContent = `${+firstNumber}`;
     lastDisplay.textContent += ' - '
     typeOperation = 'substract';
+    pressed = false;
 });
 
 buttonClear.addEventListener('click', () => {
@@ -116,22 +121,31 @@ buttonClear.addEventListener('click', () => {
     currentDisplay.textContent = '';
     lastDisplay.textContent = ``;
     defined = false;
+    pressed = false;
 });
 
 
 buttonEquals.addEventListener('click', () => {
+    if (pressed === true) {
+        return
+    }
     secondNumber = currentDisplay.textContent;
     if (typeOperation === 'sum') {
         currentDisplay.textContent = `${+firstNumber + +secondNumber}`
         lastDisplay.textContent += `${secondNumber} =`;
+        firstNumber = `${+firstNumber + +secondNumber}`
     } else if (typeOperation === 'mult') {
         currentDisplay.textContent = `${+firstNumber * +secondNumber}`
         lastDisplay.textContent += `${secondNumber} =`;
+        firstNumber = `${+firstNumber * +secondNumber}`
     } else if (typeOperation === 'division') {
         currentDisplay.textContent = `${+firstNumber / +secondNumber}`
         lastDisplay.textContent += `${secondNumber} =`;
+        firstNumber = `${+firstNumber / +secondNumber}`
     } else if (typeOperation === 'substract') {
         currentDisplay.textContent = `${+firstNumber - +secondNumber}`
         lastDisplay.textContent += `${secondNumber} =`;
+        firstNumber = `${+firstNumber - +secondNumber}`
     }
+    pressed = true;
 });

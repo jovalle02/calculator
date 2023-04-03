@@ -23,6 +23,7 @@ const lastDisplay = document.querySelector('.last')
 let firstNumber = '';
 let secondNumber = '';
 let typeOperation = null;
+let defined = false;
 
 button1.addEventListener('click', () => {
     currentDisplay.textContent += '1';
@@ -65,26 +66,46 @@ button0.addEventListener('click', () => {
 });
 
 buttonSum.addEventListener('click', () => {
-    firstNumber = currentDisplay.textContent;
+    if (defined === false) {
+        firstNumber = currentDisplay.textContent;
+        defined = true;
+    }
     currentDisplay.textContent = '';
+    lastDisplay.textContent = `${+firstNumber}`;
+    lastDisplay.textContent += ' + '
     typeOperation = 'sum';
 });
 
 buttonMultiply.addEventListener('click', () => {
-    firstNumber = currentDisplay.textContent;
+    if (defined === false) {
+        firstNumber = currentDisplay.textContent;
+        defined = true;
+    }
     currentDisplay.textContent = '';
+    lastDisplay.textContent = `${+firstNumber}`;
+    lastDisplay.textContent += ' X '
     typeOperation = 'mult';
 });
 
 buttonDivision.addEventListener('click', () => {
-    firstNumber = display.textContent;
+    if (defined === false) {
+        firstNumber = currentDisplay.textContent;
+        defined = true;
+    }
     currentDisplay.textContent = '';
+    lastDisplay.textContent = `${+firstNumber}`;
+    lastDisplay.textContent += ' ÷ '
     typeOperation = 'division';
 });
 
 buttonSubstract.addEventListener('click', () => {
-    firstNumber = display.textContent;
+    if (defined === false) {
+        firstNumber = currentDisplay.textContent;
+        defined = true;
+    }
     currentDisplay.textContent = '';
+    lastDisplay.textContent = `${+firstNumber}`;
+    lastDisplay.textContent += ' - '
     typeOperation = 'substract';
 });
 
@@ -93,6 +114,8 @@ buttonClear.addEventListener('click', () => {
     secondNumber = '';
     typeOperation = null;
     currentDisplay.textContent = '';
+    lastDisplay.textContent = ``;
+    defined = false;
 });
 
 
@@ -100,11 +123,15 @@ buttonEquals.addEventListener('click', () => {
     secondNumber = currentDisplay.textContent;
     if (typeOperation === 'sum') {
         currentDisplay.textContent = `${+firstNumber + +secondNumber}`
+        lastDisplay.textContent += `${secondNumber} =`;
     } else if (typeOperation === 'mult') {
         currentDisplay.textContent = `${+firstNumber * +secondNumber}`
+        lastDisplay.textContent += `${secondNumber} =`;
     } else if (typeOperation === 'division') {
         currentDisplay.textContent = `${+firstNumber / +secondNumber}`
+        lastDisplay.textContent += `${secondNumber} =`;
     } else if (typeOperation === 'substract') {
         currentDisplay.textContent = `${+firstNumber - +secondNumber}`
+        lastDisplay.textContent += `${secondNumber} =`;
     }
 });

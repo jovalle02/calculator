@@ -25,6 +25,7 @@ let secondNumber = '';
 let typeOperation = null;
 let defined = false;
 let pressed = false;
+let dot = false;
 
 button1.addEventListener('click', () => {
     currentDisplay.textContent += '1';
@@ -67,6 +68,7 @@ button0.addEventListener('click', () => {
 });
 
 buttonSum.addEventListener('click', () => {
+    firstNumber = currentDisplay.textContent;
     if (defined === false) {
         firstNumber = currentDisplay.textContent;
         defined = true;
@@ -76,9 +78,11 @@ buttonSum.addEventListener('click', () => {
     lastDisplay.textContent += ' + '
     typeOperation = 'sum';
     pressed = false;
+    dot = false;
 });
 
 buttonMultiply.addEventListener('click', () => {
+    firstNumber = currentDisplay.textContent;
     if (defined === false) {
         firstNumber = currentDisplay.textContent;
         defined = true;
@@ -88,9 +92,11 @@ buttonMultiply.addEventListener('click', () => {
     lastDisplay.textContent += ' X '
     typeOperation = 'mult';
     pressed = false;
+    dot = false;
 });
 
 buttonDivision.addEventListener('click', () => {
+    firstNumber = currentDisplay.textContent;
     if (defined === false) {
         firstNumber = currentDisplay.textContent;
         defined = true;
@@ -100,9 +106,11 @@ buttonDivision.addEventListener('click', () => {
     lastDisplay.textContent += ' ÷ '
     typeOperation = 'division';
     pressed = false;
+    dot = false;
 });
 
 buttonSubstract.addEventListener('click', () => {
+    firstNumber = currentDisplay.textContent;
     if (defined === false) {
         firstNumber = currentDisplay.textContent;
         defined = true;
@@ -112,6 +120,7 @@ buttonSubstract.addEventListener('click', () => {
     lastDisplay.textContent += ' - '
     typeOperation = 'substract';
     pressed = false;
+    dot = false;
 });
 
 buttonClear.addEventListener('click', () => {
@@ -122,8 +131,23 @@ buttonClear.addEventListener('click', () => {
     lastDisplay.textContent = ``;
     defined = false;
     pressed = false;
+    dot = false;
 });
 
+buttonDelete.addEventListener('click',() => {
+    currentDisplay.textContent = currentDisplay.textContent.slice(0, -1);
+    if (!currentDisplay.textContent.includes('.')) {
+        dot = false;
+    }
+});
+
+buttonDecimal.addEventListener('click',() => {
+    if (dot === true) {
+        return
+    }
+    currentDisplay.textContent += '.'
+    dot = true;
+});
 
 buttonEquals.addEventListener('click', () => {
     if (pressed === true) {
@@ -146,6 +170,10 @@ buttonEquals.addEventListener('click', () => {
         currentDisplay.textContent = `${+firstNumber - +secondNumber}`
         lastDisplay.textContent += `${secondNumber} =`;
         firstNumber = `${+firstNumber - +secondNumber}`
+    }
+
+    if (currentDisplay.textContent === 'Infinity') {
+        currentDisplay.textContent = 'not defined';
     }
     pressed = true;
 });
